@@ -50,6 +50,7 @@ const HomeScreen = () => {
       />
     );
   }
+  //Yemekleri bu fonksiyon ile Render ediyoruz.
   function renderMeal({item}) {
     return (
       <Text>{item.strMeal}</Text>

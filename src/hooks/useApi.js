@@ -1,6 +1,9 @@
 import axios from "axios";
 import React,{useState} from "react";
 
+/*Api çağrıları yapmak için kullanılan Hooks'tur. 
+Data gönderilmeyecekse boş string gönderilebilir.
+*/
 export default function useApi(){
     const API_URL = "https://www.themealdb.com/api/json/v1/1/";
     const [result,setResult] = useState([]);
