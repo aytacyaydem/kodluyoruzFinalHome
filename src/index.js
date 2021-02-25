@@ -11,7 +11,7 @@ const HomeScreen = () => {
     error: errorMeals,
     useRequest: requestMeals,
   } = useApi();
-  const [selectedCategory, setSelectedCategory] = React.useState({});
+  const [selectedCategory, setSelectedCategory] = React.useState({idCategory:"1",strCategory:"Beef"});
 
   function getMealsByCategory() {
     requestMeals(`filter.php?c=${selectedCategory.strCategory}`, 'GET');
@@ -20,8 +20,12 @@ const HomeScreen = () => {
   React.useEffect(() => {
     //Tüm ürün kategorileri burada çekilir. useRequest custom hook'tan gelen fonksiyondur.
     useRequest('categories.php', 'GET');
-    
   }, []);
+
+  React.useEffect(() => {
+    console.log(resultMeals);
+  },[resultMeals])
+
 
   //Eğer bir kategori seçiliyse seçilen kategorideki ürünleri getirir. Her kategori değiştiğinde yeniden tetiklenir.
   React.useEffect(() => {
@@ -46,6 +50,11 @@ const HomeScreen = () => {
       />
     );
   }
+  function renderMeal({item}) {
+    return (
+      <Text>{item.strMeal}</Text>
+    )
+  }
   return (
     <View style={{flex: 1}}>
       <View>
@@ -58,6 +67,7 @@ const HomeScreen = () => {
         />
       </View>
       <Suggestion />
+      <FlatList data={resultMeals.meals} renderItem={renderMeal} keyExtractor={(_,index) => index.toString()} />
     </View>
   );
 };
